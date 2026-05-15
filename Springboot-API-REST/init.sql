@@ -1,0 +1,20 @@
+CREATE DATABASE IF NOT EXISTS ventas_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+USE ventas_db;
+
+CREATE TABLE IF NOT EXISTS venta (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    numero_venta VARCHAR(50) NOT NULL UNIQUE,
+    fecha_venta DATE NOT NULL,
+    cliente VARCHAR(100) NOT NULL,
+    total DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    estado VARCHAR(50) NOT NULL DEFAULT 'PENDIENTE',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+INSERT INTO venta (numero_venta, fecha_venta, cliente, total, estado)
+VALUES
+  ('VTA-001', CURDATE(), 'Empresa A', 150000.00, 'PAGADO'),
+  ('VTA-002', CURDATE(), 'Empresa B', 320000.00, 'PENDIENTE'),
+  ('VTA-003', CURDATE(), 'Empresa C', 85000.00, 'PAGADO');
