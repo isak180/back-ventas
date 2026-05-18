@@ -5,13 +5,15 @@ FROM maven:3.9.6-eclipse-temurin-21-alpine AS builder
 
 WORKDIR /app
 
-COPY Springboot-API-REST/pom.xml ./pom.xml
-COPY Springboot-API-REST/.mvn ./.mvn
-COPY Springboot-API-REST/mvnw ./mvnw
+# Copiamos las dependencias desde la raíz actual
+COPY pom.xml ./pom.xml
+COPY .mvn ./.mvn
+COPY mvnw ./mvnw
 
 RUN chmod +x mvnw && ./mvnw dependency:go-offline -q
 
-COPY Springboot-API-REST/src ./src
+# Copiamos el código fuente desde la raíz actual
+COPY src ./src
 
 RUN ./mvnw package -DskipTests -q
 
